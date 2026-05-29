@@ -188,7 +188,7 @@ def plot_parity_all(node_nm, preds, results):
 
     fig.suptitle(f"Parity Plots — All Models ({node_nm}nm NMOS)", fontsize=14)
     plt.tight_layout()
-    out = f"figures/parity_all_{node_nm}nm.png"
+    out = f"figures/parity/parity_all_{node_nm}nm.png"
     plt.savefig(out, dpi=150)
     plt.close()
     print(f"  Saved {out}")
@@ -215,7 +215,7 @@ def plot_pareto(node_nm, results, infer_us, spice_us):
     ax.grid(True, alpha=0.3)
     ax.legend(fontsize=10)
     plt.tight_layout()
-    out = f"figures/pareto_{node_nm}nm.png"
+    out = f"figures/pareto/pareto_{node_nm}nm.png"
     plt.savefig(out, dpi=150)
     plt.close()
     print(f"  Saved {out}")
@@ -266,7 +266,7 @@ def plot_pva_vgs(df, models, node_nm, dev):
     ax.legend(fontsize=11)
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    out = f"figures/pva_vgs_{node_nm}nm.png"
+    out = f"figures/prediction_vs_actual_vgs/pva_vgs_{node_nm}nm.png"
     plt.savefig(out, dpi=150)
     plt.close()
     print(f"  Saved {out}")
@@ -296,7 +296,7 @@ def plot_pva_length(df, models, node_nm, dev):
     ax.legend(fontsize=11)
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    out = f"figures/pva_length_{node_nm}nm.png"
+    out = f"figures/prediction_vs_actual_length/pva_length_{node_nm}nm.png"
     plt.savefig(out, dpi=150)
     plt.close()
     print(f"  Saved {out}")
@@ -324,7 +324,7 @@ def plot_pva_temp(df, models, node_nm, dev):
     ax.legend(fontsize=11)
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    out = f"figures/pva_temp_{node_nm}nm.png"
+    out = f"figures/prediction_vs_actual_temp/pva_temp_{node_nm}nm.png"
     plt.savefig(out, dpi=150)
     plt.close()
     print(f"  Saved {out}")
@@ -381,7 +381,11 @@ def run_plots(node_nm, retimed=False):
         node_nm, models, X_test_df, model_file
     )
 
-    os.makedirs("figures", exist_ok=True)
+    os.makedirs("figures/parity", exist_ok=True)
+    os.makedirs("figures/pareto", exist_ok=True)
+    os.makedirs("figures/prediction_vs_actual_vgs", exist_ok=True)
+    os.makedirs("figures/prediction_vs_actual_length", exist_ok=True)
+    os.makedirs("figures/prediction_vs_actual_temp", exist_ok=True)
     plot_parity_all(node_nm, preds, results)
     plot_pareto(node_nm, results, infer_us, spice_us)
     plot_pva_vgs(df, models, node_nm, dev)

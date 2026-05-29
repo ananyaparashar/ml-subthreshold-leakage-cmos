@@ -169,8 +169,8 @@ def _plot_heatmap(df_res, node_nm):
         fontsize=13,
     )
     plt.tight_layout()
-    os.makedirs("figures", exist_ok=True)
-    out = f"figures/pvt_heatmap_{node_nm}nm.png"
+    os.makedirs("figures/pvt", exist_ok=True)
+    out = f"figures/pvt/pvt_heatmap_{node_nm}nm.png"
     plt.savefig(out, dpi=150)
     plt.close()
     print(f"\n  Saved {out}")
