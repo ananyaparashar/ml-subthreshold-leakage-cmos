@@ -97,18 +97,6 @@ Four regressors trained per node. Features: `L_nm`, `W_um`, `T_K`, `Vgs_V`, `Vds
 
 MLP is the best accuracy–speed trade-off on 45nm and 65nm (sub-0.02 decades at under 1 µs). HistGBR achieves the lowest absolute MAE on 90nm. Ridge is the baseline and confirms the problem is non-linear and has a factor of roughly 15× worse than tree/MLP models.
 
-### PVT corner robustness (45nm)
-
-Process corners modelled as +-14 mV Vth shifts (FF/SS), voltage corners as +-10% Vds scaling.
-
-| Corner | HistGBR MAE | MLP MAE |
-|--------|-------------|---------|
-| TT, all temps | 0.022–0.028 | 0.011–0.032 |
-| FF/SS, all temps | 0.172–0.189 | 0.155–0.206 |
-
-TT-corner accuracy is near-nominal. FF/SS degradation (~0.18 decades) is expected: Vth shifts push the operating point into a distribution tail the model was not explicitly trained on. For TT-corner early-stage power estimation this surrogate is directly usable.
-
----
 
 ## Physical Checks
 
@@ -128,7 +116,6 @@ data/                Per-node simulation CSVs
 figures/             All output plots
 generate_data.py     Ngspice sweep → CSV (replace this to re-simulate)
 train_leakage.py     Model training, evaluation, parity + Pareto figures
-pvt_experiment.py    PVT corner analysis and heatmap
 plot_results.py      Physical sanity-check plots (all models vs BSIM4)
 requirements.txt     Python dependencies
 ```
@@ -152,8 +139,6 @@ python generate_data.py --node 45
 # Train and evaluate
 python train_leakage.py --node 45
 
-# PVT analysis
-python pvt_experiment.py --node 45
 
 # Sanity and comparison plots
 python plot_results.py --node 45
